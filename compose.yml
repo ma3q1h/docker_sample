@@ -1,0 +1,22 @@
+services:
+  main-cuda:
+    restart: always
+    build:
+      context: ./
+      args:
+        - USERNAME=$USER
+        - UID=$UID
+        - GID=$GID
+    command: /bin/bash
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    volumes:
+      - $PWD/work:/home/$USER/work
+    ports:
+      - 8880-8888:8880-8888
+    tty: true
