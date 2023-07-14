@@ -107,7 +107,7 @@ $ ./compose_up.sh
 内部ではdocker compose up というコマンドが働いています
 
 ### 構築される環境の階層
-/root/home/hattori/  
+/root/home/$USER/  
 ├── .jupyter  
 ├── ├── jupyter_notebook_config.py  
 ├── ├── jupyter_notebook_config.py.old  
