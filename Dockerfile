@@ -19,11 +19,11 @@ RUN python3.9 -m pip install -U pip wheel setuptools
 #RUN python3.9 -m pip install torch==1.7.1+cu110 -f https://download.pytorch.org/whl/torch_stable.html
 RUN python3.9 -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 
+COPY ./scripts /home/${USERNAME}/scripts
+
 # Install jupyter notebook
-RUN apt-get update
-RUN apt-get -y upgrade
-RUN python3.9 -m pip install notebook
-RUN python3.9 -m pip install jupyter
+RUN apt-get update && apt-get -y upgrade
+RUN python3.9 -m pip install -r /home/${USERNAME}/scripts/requirements.txt
 #RUN python3.9 -m pip install jupyterlab
 
 #aptget
@@ -48,8 +48,6 @@ RUN echo "root:root" | chpasswd && \
 # working directory
 WORKDIR /home/${USERNAME}/work
 RUN chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}/work
-#copy scripts
-COPY ./scripts /home/${USERNAME}/scripts
 RUN chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}/scripts
 RUN chmod -R 777 /home/${USERNAME}/scripts/
 USER ${USERNAME}
